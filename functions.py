@@ -100,7 +100,7 @@ def randInitializeWeights(L_in,L_out):
     W = np.random.rand(L_out,L_in+1)*(2*epi)-epi
     return W
 
-def gradientDescent(X, y, theta, alpha, nbr_iter, Lambda, input_layer_size, hidden_layer_size, num_labels, regularizada=True):
+def gradientDescent(X, y, theta, alpha, nbr_iter, Lambda, input_layer_size, hidden_layer_size, num_labels, regularizada):
 
 #     thetan = createTheta(theta,input_layer_size,hidden_layer_size,num_labels)
     thetan = theta
@@ -129,3 +129,18 @@ def prediction(X,thetan):
             an[-1] = np.hstack((np.ones((m,1)),an[-1]))  
 
     return np.argmax(an[-1],axis=1)+1
+
+def backpropagation(X, y, num_labels, hidden_layer_size, Lambda, alpha, nbr_iter, regularizada=True):
+    input_layer_size = X.shape[1]
+    n_layers = hidden_layer_size.shape[0]
+
+    theta = []
+    theta.append(randInitializeWeights(input_layer_size,hidden_layer_size[0]))
+    if(n_layers > 1):
+        for i in range(hidden_layer_size.shape[0]-1):
+            theta.append(randInitializeWeights(hidden_layer_size[i],hidden_layer_size[i+1]))
+    theta.append(randInitializeWeights(hidden_layer_size[-1],num_labels))
+
+    theta, J_history = gradientDescent(X, y, theta, alpha, nbr_iter, Lambda, input_layer_size, hidden_layer_size, num_labels, regularizada)
+    
+    return theta, J_history
