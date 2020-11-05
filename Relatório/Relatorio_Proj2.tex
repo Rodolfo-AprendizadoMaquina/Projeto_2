@@ -1,0 +1,99 @@
+\documentclass[12pt]{article}
+\usepackage{makeidx}
+\makeindex
+\usepackage{subcaption}
+\usepackage[utf8]{inputenc}%acentuação das palavras
+\usepackage[T1]{fontenc}%codificação de fonte
+\usepackage[brazilian]{babel}
+\usepackage{tikz}
+\usepackage{textcomp}
+\usepackage{afterpage}
+\usepackage{varwidth}
+\usepackage{indentfirst}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\usepackage{amssymb}
+\usepackage{amscd}
+\usepackage{amsxtra}
+\usepackage{latexsym}
+\usepackage{hyperref}
+%\usepackage{cleveref}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{etoolbox}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{setspace} \onehalfspacing
+\usepackage{mathptmx}
+\usepackage[portuguese,ruled,vlined,linesnumbered]{algorithm2e}%algoritmos
+\setlength{\parindent}{1.5cm}
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=2cm,marginparwidth=1.75cm]{geometry}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+
+\usepackage[italic]{mathastext}
+\usepackage{graphicx}
+\usepackage{longtable}
+
+\title{Projeto 2 - MS960/MT862}
+\author{Fernando Ribeiro de Senna --- RA 197019\\
+Rodolfo}
+\date{13 de novembro de 2020}
+\begin{document}
+\maketitle
+
+Foi implementada rede neural regularizada para classificar dígitos manuscritos. Foram utilziados como exemplos de treinamento imagens provenientes da base de imagens MNIST ($20 \times 20$), linearizadas em vetores de 400 entradas. A implementação computacional foi feita em linguagem \textit{python} em três arquivos: \textit{functions.py}, que contém as funções utilizadas; \textit{neural\_networks\_p2\_1.ipynb}, que contém a parte 1 do projeto (mais voltada à implementação do algoritmo) e \textit{Avaliacao\_NeuralNet.ipynb} que contém a parte 2 do projeto (voltada à seleção de do modelo).
+
+A Seção \ref{doc} apresenta documentação das funções implementadas no arquivo \textit{functions.py,} a Seção \ref{dados} apresenta a forma como foi feita a importação e o processamento dos dados (comum aos arquivos \textit{neural\_networks\_p2\_1.ipynb} e \textit{Avaliacao\_NeuralNet.ipynb}), a Seção \ref{parte1} versa sobre a implementação computacional da parte 1 do projeto e a Seção \ref{parte2} apresenta o que foi feito na parte 2 do projeto.
+
+Foram utilizados funções e objetos das bibliotecas \textit{pandas, numpy} e \textit{matplotlib}. 
+
+Toda a fundamentação teórica se baseia em conteúdo oferecido em vídeo-aulas e \textit{slides} pelo Professor João Batista Florindo em ocasião de oferecimento da disciplina MS960 no segundo semestre de 2020 pelo Instituto de Matemática, Estatística e Computação Científica (IMECC) da Universidade Estadual de Campinas (UNICAMP).
+
+
+\section{Documentação} \label{doc}
+
+\section{Importação e processamento dos dados} \label{dados}
+Esse processamento de dados é comum a ambos as partes do projeto e está presente nos arquivos \textit{neural\_networks\_p2\_1.ipynb} e \textit{Avaliacao\_NeuralNet.ipynb}.
+
+Para importação dos dados, foi utilizada a função \textit{read\_csv} da biblioteca \textit{pandas}, para importar as imagens do arquivo \textit{imageMNIST.csv} e os números a que correspondem do arquivo \textit{labelMNIST.csv.} Uma vez importados os dados, foi realizada remoção de dados excessivos.
+
+No conjunto de exemplos de treinamento, havia alguns \textit{pixels} que apresentavam valor nulo para todas as imagens presentes no conjunto de treinamento. Assim, a fim de evitar a presença excessiva de atributos na regressão logística, as colunas da base de dados correspondentes a essas imagens foram removidas, já que não interfeririam no resultado. Essa transformação é feita pela função \textit{zero\_col}.
+
+Por fim, definem-se as variáveis X e y, que são, respectivamente, uma matriz em que cada linha representa os \textit{pixels} de uma imagem do conjunto de treinamento e um vetor com os rótulos corretos do conjunto de treinamento.
+
+\section{Implementação do Algoritmo --- Parte I} \label{parte1}
+
+\subsection{Visualização das unidades de ativação escondidas}
+A fim de ser possível visualizar a contribuição de cada unidade de ativação escondida, foi representado gráficamente o vetor de parâmetros $\Theta^{(1)}$ (após realização do \textit{backpropagation}), que contém os parâmetros que "transportam" os dados de entrada para cada unidade de ativação da camada escondida.
+
+Para isso, removeu-se o \textit{bias} de cada uma das linhas (cada linha corresponde a uma unidade de ativação) e acrescentaram-se os valores de $\Theta^{(1)}_{i,j}$ que correspondem aos \textit{pixels} que são nulos em todas as imagens e foram retirados dos exemplos de treinamento conforme discutido na Seção \ref{dados}. O valor desses parâmetros inseridos é zero, pois não contribuem com os resultados obtidos na base de dados utilizados.
+
+Em seguida, os valores dos parâmetros foram normalizados a fim de facilitar a visualização. Para isso, utilizou-se (com relação a cada unidade de ativação) o processo de \textit{scaling}, em que cada valor é substituído pela divisão entre a diferença entre o valor e o valor mínimo e a diferença entre os valores máximo e mínimo, conforme pode ser visto na Equação \ref{scaling}.
+
+\begin{equation} \label{scaling}
+\Theta^{(1)}_{i,j} := \frac{ \Theta^{(1)}_{i,j} - \min\limits_i\left\{\Theta^{(1)}_{i,j}\right\}}{\max\limits_i\left\{\Theta^{(1)}_{i,j}\right\} - \min\limits_i\left\{\Theta^{(1)}_{i,j}\right\}}
+\end{equation}
+
+Por fim, cada linha de $\Theta^{(1)}_{i,j}$ é rearranjada em imagem de dimensão $20 \times 20$ \textit{pixels} e impressa com auxílio de funções da biblioteca \textit{matplotlib.} O resultado está na figura \ref{img_un_escond}.
+
+***INSERIR IMAGEM UNIDADES DE ATIVAÇÃO*** 
+
+\section{Seleção de modelo --- Parte II} \label{parte2}
+As operações descritas nessa Seção estão no arquivo \textit{Avaliacao\_NeuralNet.ipynb} e são relativas à segunda parte do projeto. A importação e o processamento dos dados foram feitos conforme descrito na Seção \ref{dados}.
+
+
+\subsection{Treino, validação e teste}
+
+\subsection{Curvas de aprendizado}
+Curvas de aprendizado são gráficos que servem para comparar o desempenho dos conjuntos de treino e validação para diferentes quantidades de exemplos de treinamento. 
+
+\subsection{Seleção de $\lambda$}
+
+
+\section{Referências}
+Vídeo-aulas e \textit{slides} pelo Professor João Batista Florindo em ocasião de oferecimento da disciplina MS960 no segundo semestre de 2020 pelo Instituto de Matemática, Estatística e Computação Científica (IMECC) da Universidade Estadual de Campinas (UNICAMP).
+
+
+\end{document}
