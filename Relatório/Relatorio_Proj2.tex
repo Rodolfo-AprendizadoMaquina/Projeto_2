@@ -128,6 +128,8 @@ No conjunto de exemplos de treinamento, havia alguns \textit{pixels} que apresen
 Por fim, definem-se as variáveis X e y, que são, respectivamente, uma matriz em que cada linha representa os \textit{pixels} de uma imagem do conjunto de treinamento e um vetor com os rótulos corretos do conjunto de treinamento.
 
 \section{Implementação do Algoritmo --- Parte I} \label{parte1}
+As operações descritas nessa Seção estão no arquivo \textit{neural\_networks\_p2\_1.ipynb} e são relativas à primeira parte do projeto. A importação e o processamento dos dados foram feitos conforme descrito na Seção \ref{dados}.
+
 
 \subsection{Visualização das unidades de ativação escondidas}
 A fim de ser possível visualizar a contribuição de cada unidade de ativação escondida, foi representado gráficamente o vetor de parâmetros $\Theta^{(1)}$ (após realização do \textit{backpropagation}), que contém os parâmetros que "transportam" \ os dados de entrada para cada unidade de ativação da camada escondida.
@@ -140,9 +142,14 @@ Em seguida, os valores dos parâmetros foram normalizados a fim de facilitar a v
 \Theta^{(1)}_{i,j} := \frac{ \Theta^{(1)}_{i,j} - \min\limits_i\left\{\Theta^{(1)}_{i,j}\right\}}{\max\limits_i\left\{\Theta^{(1)}_{i,j}\right\} - \min\limits_i\left\{\Theta^{(1)}_{i,j}\right\}}
 \end{equation}
 
-Por fim, cada linha de $\Theta^{(1)}_{i,j}$ é rearranjada em imagem de dimensão $20 \times 20$ \textit{pixels} e impressa com auxílio de funções da biblioteca \textit{matplotlib.} O resultado está na Figura \ref{img_un_escond}.
+Por fim, cada linha de $\Theta^{(1)}_{i,j}$ é rearranjada em imagem de dimensão $20 \times 20$ \textit{pixels} e impressa com auxílio de funções da biblioteca \textit{matplotlib.} A Figura \ref{img_un_escond} apresenta a representação gráfica de cada uma das unidades de ativação escondidas após realizar treinamento com todas as 5 mil imagens do conjunto de treinamento através da função \textit{backpropagation} com uma camada escondida com 25 unidades de ativação, $\lambda = 0,001, \ \alpha = 0.8$ e 800 iterações.
 
-***INSERIR IMAGEM UNIDADES DE ATIVAÇÃO*** 
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.8]{corte_unidades_ativacao.jpg}
+\caption{Representação gráfica das unidades de ativação da camada escondida.} \label{img_un_escond}
+\end{center}
+\end{figure}
 
 \section{Seleção de modelo --- Parte II} \label{parte2}
 As operações descritas nessa Seção estão no arquivo \textit{Avaliacao\_NeuralNet.ipynb} e são relativas à segunda parte do projeto. A importação e o processamento dos dados foram feitos conforme descrito na Seção \ref{dados}.
@@ -153,23 +160,52 @@ As operações descritas nessa Seção estão no arquivo \textit{Avaliacao\_Neur
 
 A fim de garantir que não haveria desbalanceamento de classes, isto é, que um conjunto contivesse mais imagens correspondentes a um número do que a outro, essa separação aleatória foi feita classe a classe, de modo que no fim, 60\% dos exemplos referentes a cada número estivesse no conjunto de treino, 20\% no de validação e 20\% no de teste.
 
-Uma vez separados os exemplos de treinamento nesses três conjuntos, realizou-se treinamento utilizando o conjunto de treino e a função \textit{backpropagation} com 800 iterações, $\alpha = 0,8$ e $\lambda=0,03$ (valor obtido através dos testes da Seção \ref{lambda_otimo}). Em seguida, verificou-se o desempenho do resultado para os conjuntos de validação e teste *** COMPLETAR RESULTADOS ***.
+Uma vez separados os exemplos de treinamento nesses três conjuntos, realizou-se treinamento utilizando o conjunto de treino e a função \textit{backpropagation} com 800 iterações, $\alpha = 0,8$ e $\lambda=0,001$ (valor obtido através dos testes da Seção \ref{lambda_otimo}). Em seguida, verificou-se o desempenho do resultado para os conjuntos de treino, validação e teste. O algoritmo classificou corretamente 94,57\% das imagens do conjunto de treino, com função de custo avaliada em 0,4115. Foram classificadas corretamente 91,8\% das imagens do conjunto de validação, obtendo 0,5556 para o valor da função de custo. Já para o conjunto de teste, foram classificadas corretamente 90,7\% das imagens, com função de custo 0,5832.
 
-Como os resultados do primeiro treinamento foram satisfatórios ao serem aplicados aos conjuntos de validação e teste, foi feito novo treinamento, dessa vez utilizando tanto o conjunto de treino quanto o de validação. Novamente, foram utilizadas 800 iterações, $\alpha = 0,8$ e $\lambda=0,03$. *** COMPLETAR RESULTADOS ***
+Como os resultados do primeiro treinamento foram satisfatórios ao serem aplicados aos conjuntos de validação e teste, foi feito novo treinamento, dessa vez utilizando tanto o conjunto de treino quanto o de validação. Novamente, foram utilizadas 800 iterações, $\alpha = 0,8$ e $\lambda=0,001$. Para os conjuntos de treino e validação (conjunto de exemplos de treinamento desse novo treinamento), o algoritmo classificou corretamente 94,77\% das imagens, com função de custo avaliada em 0,4173. Já para o conjunto de teste, foram classificadas corretamente 91,6\% das imagens, com 0,5455 como valor para a função de custo.
+
+Conforme esperado, houve pouca variação no desempenho para o conjunto utilizado como treinamento nos dois casos, uma vez que os hiperparâmetros foram os mesmos. Além disso, para o conjunto de teste, o desempenho do algoritmo de classificação foi melhor, pois havia mais exemplos de treinamento quando a rede neural foi treinada, melhorando a precisão.
 
 \subsection{Curvas de aprendizado}
 Curvas de aprendizado são gráficos que servem para comparar o desempenho dos conjuntos de treino e validação para diferentes quantidades de exemplos de treinamento. Para construí-las, é necessário realizar diversos treinamentos, cada um com uma quantidade diferente de exemplos de treinamento e comparar os erros do conjunto utilizado para treinamento e o conjunto utilizado para validação.
 
-Para construir essas curvas, foram utilizados os conjuntos de treino e validação descritos na Seção \ref{treino, val, teste}. Foram realizados 30 treinamentos, com $100, 200, \ldots, 3000$ exemplos do conjunto de treino, garantindo que em nenhum treinamento houvesse desbalanceamento de classes. Em seguida, construiu-se o gráfico das curvas de aprendizado, com o valor do erro dos conjuntos de treino (somente as amostras usadas naquele treinamento) e validação em função do tamanho do conjunto usado no treinamento. O resultado está na Figura *** INSERIR GRÁFICO ***
+Para construir essas curvas, foram utilizados os conjuntos de treino e validação descritos na Seção \ref{treino, val, teste}. Foram realizados 30 treinamentos, com $100, 200, \ldots, 3000$ exemplos do conjunto de treino, garantindo que em nenhum treinamento houvesse desbalanceamento de classes. Nesses treinamentos, foram usados $\lambda=0,001, \ \alpha=0,8$ e 800 iterações. Em seguida, construiu-se o gráfico das curvas de aprendizado, com o valor do erro dos conjuntos de treino (somente as amostras usadas naquele treinamento) e validação em função do tamanho do conjunto usado no treinamento. O resultado está na Figura \ref{curvas_aprendizado}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.8]{curvas_aprendizado.jpg}
+\caption{Curvas de aprendizado.} \label{curvas_aprendizado}\end{center}
+\end{figure}
+
+Conforme esperado, o erro do conjunto de treinamento se torna cada vez maior, devido à maior quantidade de exemplos, enquanto para o conjunto de validação o erro diminui, de forma a torná-los cada vez mais próximos. 
 
 \subsection{Seleção de $\lambda$} \label{lambda_otimo}
 Nessa Seção, é descrito o procedimento utilizado para encontrar o valor ótimo de $\lambda$ na regularização. Para isso, foram feitos dez treinamentos com o conjunto de treino, todos com 800 iterações e $\alpha=0,8$, variando o valor de $\lambda$ no conjunto $\{0; 0,001; 0,003; 0,01; 0,03; 0,1; 0,3; 1; 3; 10\}$. Para cada treinamento, avaliou-se o erro para o conjunto de validação.
 
-Para analisar o resultado, foram construídos três gráficos:  evolução do erro do conjunto de validação em função de $\lambda$ (Figura ***COMPLETAR***),  evolução do erro do conjunto de validação com relação ao $\lambda$ para os primeiros 6 treinamentos (Figura ***COMPLETAR***) e logaritmo do erro em função do logaritmo de $\lambda$ (Figura ***COMPLETAR***). Os três gráficos são úteis para visualizar o resultado, pois, devido à grande variação de $\lambda$, apenas um deles é insuficiente para perceber os resultados adequadamente.
+Para analisar o resultado, foram construídos três gráficos:  evolução do erro do conjunto de validação em função de $\lambda$ (Figura \ref{evolucao_lambda}),  evolução do erro do conjunto de validação com relação ao $\lambda$ para os primeiros 6 treinamentos (Figura \ref{primeiros_lambda}) e logaritmo do erro em função do logaritmo de $\lambda$ (Figura \ref{log_lambda}). Os três gráficos são úteis para visualizar o resultado, pois, devido à grande variação de $\lambda$, apenas um deles é insuficiente para perceber os resultados adequadamente.
 
-*** INSERIR GRÁFICOS ***
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.8]{evolucao_lambda.jpg}
+\caption{Evolução da função de custo para o conjunto de validação em função de $\lambda$.} \label{evolucao_lambda}
+\end{center}
+\end{figure}
 
-A partir dos resultados desses treinamentos e da comparação com o desempenho do conjunto de validação, obteve-se 0,03 como valor ótimo para $\lambda$. Com base nesse resultado, novo treinamento foi realizado, dessa vez usando tanto o conjunto de treino quanto o de validação como exemplos, utilizando 800 iterações, $\alpha=0,8$ e $\lambda=0,03$. Avaliou-se, então, o desempenho do método ao aplicá-lo ao conjunto de teste, obtendo ***COMPLETAR***.
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.8]{primeiros_lambda.jpg}
+\caption{Evolução da função de custo para o conjunto de validação em função dos seis primeiros valores de $\lambda$.} \label{primeiros_lambda}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.8]{log_lambda.jpg}
+\caption{Evolução do logaritmo da função de custo para o conjunto de validação em função do logaritmo de $\lambda$.} \label{log_lambda}
+\end{center}
+\end{figure}
+
+A partir dos resultados desses treinamentos e da comparação com o desempenho do conjunto de validação, obteve-se 0,001 como valor ótimo para $\lambda$. Com base nesse resultado, novo treinamento foi realizado, dessa vez usando tanto o conjunto de treino quanto o de validação como exemplos, utilizando 800 iterações, $\alpha=0,8$ e $\lambda=0,001$. Avaliou-se, então, o desempenho do método ao aplicá-lo ao conjunto de teste, obtendo classificação correta para 91,6\% das imagens e função de custo avaliada em 0,5319.
 
 
 \section{Referências}
