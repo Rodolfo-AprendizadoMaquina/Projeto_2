@@ -73,10 +73,9 @@ def computeCost(theta, X, y, input_layer_size, hidden_layer_size, num_labels, La
             aux = np.array(dn[0] @ thetan[len(thetan)-1-j]) * sigmoidGradient(z)
             dn.insert(0,aux[:,1:])
 
-    #     grad[0] = grad[0] + dn[0][1:][:,np.newaxis] @ xi[:,np.newaxis].T
         
         for j in range(len(thetan)):
-            grad[j] = grad[j] + (ani[j].reshape(1,ani[j].size).T @ dn[j].reshape(1,dn[j].size)).T# PROBLEMAS AQUI
+            grad[j] = grad[j] + (ani[j].reshape(1,ani[j].size).T @ dn[j].reshape(1,dn[j].size)).T
 
     for j in range(len(grad)):                        
         grad[j] = np.array(1/m*grad[j])
@@ -99,8 +98,6 @@ def gradientDescent(theta,X, y, alpha, nbr_iter, Lambda, input_layer_size, hidde
     J_history = []
     conj = False
     for i in range(nbr_iter):
-#         for j in range(len(thetan)-1):
-#             theta_n = np.append(thetan[0].flatten(),thetan[j+1].flatten())
         cost, grad = computeCost(thetan,X,y,input_layer_size,hidden_layer_size,num_labels,Lambda,conj,regularizada)
         for j in range(len(thetan)): 
             thetan[j] = thetan[j] - (alpha*grad[j])
@@ -191,13 +188,13 @@ def gradientConjugate(X, y, alpha, nbr_iter, Lambda, input_layer_size, hidden_la
             theta.append(randInitializeWeights(hidden_layer_size[i],hidden_layer_size[i+1]))
     theta.append(randInitializeWeights(hidden_layer_size[-1],num_labels))
     thetan = theta
-    J_history = []
+    for j in range(len(thetan)-1):
+        X0 = np.append(thetan[0].flatten(),thetan[j+1].flatten())
    
-    X0 = np.append(theta[0].flatten(),theta[1].flatten())
     
     res = minimize(computeCost, X0, args=(X, y, input_layer_size, hidden_layer_size, num_labels, Lambda,conj,regularizada),options={'maxiter': nbr_iter}) 
                                       
-    return thetan,J_history, res
+    return res
 
 def reshapeTheta(theta, input_layer_size, hidden_layer_size, num_labels):
      
