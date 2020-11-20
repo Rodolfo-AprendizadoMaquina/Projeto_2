@@ -1,0 +1,23 @@
+\BOOKMARK [1][-]{section.1}{Documenta\347\343o}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Fun\347\343o backpropagation}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Fun\347\343o computeCost}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Fun\347\343o gradientDescent}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Fun\347\343o prediction}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.5}{Fun\347\343o checkGradient}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.6}{Fun\347\343o gradientConjugate}{section.1}% 7
+\BOOKMARK [2][-]{subsection.1.7}{Fun\347\343o randInitializeWeights}{section.1}% 8
+\BOOKMARK [2][-]{subsection.1.8}{Fun\347\343o sigmoid}{section.1}% 9
+\BOOKMARK [2][-]{subsection.1.9}{Fun\347\343o sigmoidGradient}{section.1}% 10
+\BOOKMARK [2][-]{subsection.1.10}{Fun\347\343o reshapeTheta}{section.1}% 11
+\BOOKMARK [2][-]{subsection.1.11}{Fun\347\343o zero\137col}{section.1}% 12
+\BOOKMARK [1][-]{section.2}{Importa\347\343o e processamento dos dados}{}% 13
+\BOOKMARK [1][-]{section.3}{Implementa\347\343o do Algoritmo \204 Parte I}{}% 14
+\BOOKMARK [2][-]{subsection.3.1}{Rede Neural Regularizada}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.2}{Checagem do Gradiente}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.3}{Gradiente Conjugado}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.4}{Visualiza\347\343o das unidades de ativa\347\343o escondidas}{section.3}% 18
+\BOOKMARK [1][-]{section.4}{Sele\347\343o de modelo \204 Parte II}{}% 19
+\BOOKMARK [2][-]{subsection.4.1}{Treino, valida\347\343o e teste}{section.4}% 20
+\BOOKMARK [2][-]{subsection.4.2}{Curvas de aprendizado}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.3}{Sele\347\343o de }{section.4}% 22
+\BOOKMARK [1][-]{section.5}{Refer\352ncias}{}% 23

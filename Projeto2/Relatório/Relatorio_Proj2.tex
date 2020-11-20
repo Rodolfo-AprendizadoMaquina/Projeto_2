@@ -363,7 +363,7 @@ Em seguida, os valores dos parâmetros foram normalizados a fim de facilitar a v
 
 Por fim, cada linha de $\Theta^{(1)}_{i,j}$ é rearranjada em imagem de dimensão $20 \times 20$ \textit{pixels} e impressa com auxílio de funções da biblioteca \textit{matplotlib.} A Figura \ref{img_un_escond} apresenta a representação gráfica de cada uma das unidades de ativação escondidas após realizar treinamento com todas as 5 mil imagens do conjunto de treinamento através da função \textit{backpropagation} com uma camada escondida com 25 unidades de ativação, $\lambda = 0,001, \ \alpha = 0.8$ e 800 iterações.
 
-\begin{figure}
+\begin{figure} [h]
 \begin{center}
 \includegraphics[scale=0.8]{corte_unidades_ativacao.jpg}
 \caption{Representação gráfica das unidades de ativação da camada escondida.} \label{img_un_escond}
@@ -428,7 +428,9 @@ A partir dos resultados desses treinamentos e da comparação com o desempenho d
 
 
 \section{Referências}
-Vídeo-aulas e \textit{slides} pelo Professor João Batista Florindo em ocasião de oferecimento da disciplina MS960 no segundo semestre de 2020 pelo Instituto de Matemática, Estatística e Computação Científica (IMECC) da Universidade Estadual de Campinas (UNICAMP). Artigo sobre checagem do gradiente presente no seguinte endereço:
+Vídeo-aulas e \textit{slides} pelo Professor João Batista Florindo em ocasião de oferecimento da disciplina MS960 no segundo semestre de 2020 pelo Instituto de Matemática, Estatística e Computação Científica (IMECC) da Universidade Estadual de Campinas (UNICAMP).
+
+Artigo sobre checagem do gradiente presente no seguinte endereço:
 
 https://towardsdatascience.com/how-to-debug-a-neural-network-with-gradient-checking-41deec0357a9
 
