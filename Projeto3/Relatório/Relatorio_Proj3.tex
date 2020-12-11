@@ -43,7 +43,10 @@ Rodolfo da Silva Santos --- RA 228711}
 \begin{document}
 \maketitle
 
-Na primeira parte do projeto, ***COMPLETAR***.
+Na primeira parte do projeto foi implementado conceitos de Máquinas de Vetores de Suporte com Kernel Linear e Gaussiano, com o objetivo de separar elementos entre duas classes e otimizar hiperparâmetros. A implementação foi feita no arquivo \textit{ SVM\_Projeto\_3\_Parte\_1.ipynb} e está descrita na Seção \ref{parte1}.
+
+No desenvolvimento da parte 1 do projeto foram utilizados funções, módulos e objetos das bibliotecas \textit{scipy, numpy, sklearn} e \textit{matplotlib}.
+
 
 Já na segunda parte do projeto, foi implementada ferramenta de Análise de Componentes Principais (PCA), com o objetivo de realizar redução de dimensionalidade para trabalhar com reconhecimento facial. A implementação foi feita no arquivo \textit{PCA\_part2.ipynb} e está descrita na Seção \ref{parte2}.
 
@@ -57,8 +60,65 @@ Toda a fundamentação teórica se baseia em conteúdo oferecido em vídeo-aulas
 
 
 
-\section{*** --- Parte I} \label{parte1}
+\section{Máquinas de Vetores de Suporte --- Parte I} \label{parte1}
 
+Os conceitos, métodos e ferramentas descritos nessa seção tem por objetivo a identificação de padrões e classificação de exemplos de treinamento ou teste em classes distintas. Para isso se procurou encontrar a melhor fronteira de decisão que separasse, de forma otimizada, as classes de objetos em estudo. Todas as considerações dessa seção estão descritas no arquivo \textit{ SVM\_Projeto\_3\_Parte\_1.ipynb}.
+
+\subsection{Máquinas de Vetores de Suporte – Linear}
+
+Na implementação da máquina de vetores de suporte linear foi utilizada a função SVC da biblioteca sklearn do python. Para o fator de regularização C (C = 1/lambda) utilizou-se os valores 1, 50 e 100. As três fronteiras de decisão foram colocadas no gráfico abaixo. Neste gráfico se vê que para a SVM linear o melhor valor para o hiperparâmetro C foi 1 por manter a fronteira de decisão mais equidistante dos exemplos de treinamento de ambas as classes. Como C = 1/lambda é de se esperar que a regularização seja mais forte quando C for pequeno ao contrário de quando se usava lambda. Logo para se evitar overfitting deve-se diminuir o valor de C.
+
+\begin{figure} [htp]
+\begin{center}
+\includegraphics[scale=0.8]{svm_linear.png}
+\caption{Azul C=1, Verde C= 50 e Magenta C= 100} \label{svm_linear}
+\end{center}
+\end{figure}
+
+Dessa forma, quanto maior o valor para a variável C mais a fronteira de decisão fica vulnerável a influencia de outliers, como visto, para as fronteiras de decisão com C valendo 50 e 100. Com o hiperparâmetros C muito grande a regularização fica praticamente anulada e o modelo fica sensível a overfitting. Ou seja, os outliers terão grande influência sobre o desenho da fronteira de decisão uma vez que não há regularização para reduzir o peso individual de cada exemplo de treinamento.
+
+\subsection{Máquinas de Vetores de Suporte – Gaussiano}
+
+A máquina de vetores de suporte gaussiano foi implementada com o uso da função SVC da biblioteca sklearn do python com a opção de kernel “rbf”. O modelo foi treinado com os dados presentes nas colunas X e y do arquivo dado2.mat, e os testes foram feitos com os dados presentes nas colunas Xval e yval do mesmo arquivo. Como resultado foi obtido o gráfico da imagem abaixo.
+
+\begin{figure} [htp]
+\begin{center}
+\includegraphics[scale=0.8]{svm_gaussiano.png}
+\caption{C= 1 e gamma = “scale”} \label{svm_gaussiano}
+\end{center}
+\end{figure}
+
+A fronteira de decisão foi capaz de separar as duas classes. Entretanto, de acordo com os valores de C e $\gamma$, uma parte isolada da fronteira de decisão aparece na parte inferior direita do gráfico. Esta parte da fronteira de decisão desaparece com a calibragem dos hiperparâmetros C e $\gamma$. Isso pode ser visto na imagem a seguir.
+
+\begin{figure} [htp]
+\begin{center}
+\includegraphics[scale=0.8]{svm_gaussiano2.png}
+\caption{C= 19 e gamma = 1,7} \label{svm_gaussiano_2}
+\end{center}
+\end{figure}
+
+Nesta imagem foram utilizados C = 19 e $\gamma$ = 1,7. Entretanto, apesar da fronteira de decisão ficar restrita a divisão dos dois grupos de exemplos de treinamento, esses valores de C e $\gamma$ não são os que melhor otimizam a fronteira de decisão. Esse fato será melhor analisado na próxima seção.
+
+\subsection{C e gamma ideais}
+
+Para otimizar os hiperparâmetros C e $\gamma$ foi utilizado o módulo GridSearchCV da biblioteca sklearn. Esse módulo permite a combinação dos hiperparâmetros C e $\gamma$ e a posterior avaliação dos resultados obtidos. Para isso o GridSearchCV necessita receber um dicionário com os valores de C e $\gamma$ e a função SVC. O módulo retornará uma tabela com todas as combinações entre esses hiperparâmetros. 
+
+O GridSearchCV fornece funções como best\_params\_ que retorna os valores otimizados e best\_score\_ que apresenta a pontuação dos parâmetros escolhidos permitindo a comparação do desempenhos entre as combinações de parâmetros. A função best\_estimator\_ retorna diretamente a melhor combinação de parâmetros para a instância do módulo GridSearchCV e permiti o uso direto da função predict nela.
+
+O hiperparâmetro gama define até onde chega a influência de um único exemplo de treinamento em relação à fronteira de decisão. Se ele tiver um valor baixo significa que cada ponto tem um alcance distante, e inversamente, um valor alto de gama significa que cada ponto tem um alcance próximo.
+
+Assim, se gama tem um valor muito alto a fronteira de decisão vai depender apenas dos pontos que estão muito próximos a ela e por causa disso terá um aspecto mais ondulado. Se gama tiver um valor muito pequeno a fronteira de decisão será muito afetada por pontos que estão distantes dela e a curva obterá um aspecto mais linear. 
+
+No treinamento dos modelos foram utilizados os valores [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30] tanto para C como para $\gamma$. Desses parâmetros foram devolvidos pela função best\_params\_ como melhores valores C = 30 e $\gamma$ = 3. E a melhor pontuação foi 0,9194. O gráfico abaixo demonstra a fronteira de decisão desenhada com C e $\gamma$ otimizados. 
+
+\begin{figure} [htp]
+\begin{center}
+\includegraphics[scale=0.8]{svm_gaussiano3.png}
+\caption{C= 30 e gamma = 3} \label{svm_gaussiano_3}
+\end{center}
+\end{figure}
+
+Mesmo com os hiperparâmetros otimizados a fronteira de decisão continuou dividida em duas partes isso demonstra que apesar desse fato essa fronteira divide melhor as duas classes. 
 
 \section{Análise de Componentes Principais (PCA) --- Parte II} \label{parte2}
 As operações descritas nessa Seção estão no arquivo \textit{PCA\_part2.ipynb} e são relativas à segunda parte do projeto, que realiza Análise de Componentes Principais a fim de realizar redução de dimensionalidade para problemas de reconhecimento facial.
