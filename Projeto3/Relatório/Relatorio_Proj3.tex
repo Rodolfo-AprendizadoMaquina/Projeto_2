@@ -39,7 +39,7 @@
 \title{Projeto 3 - MS960/MT862}
 \author{Fernando Ribeiro de Senna --- RA 197019\\
 Rodolfo da Silva Santos --- RA 228711}
-\date{11 de dezembro de 2020}
+\date{18 de dezembro de 2020}
 \begin{document}
 \maketitle
 
@@ -54,15 +54,9 @@ Foram utilizados funções e objetos das bibliotecas \textit{scipy, numpy} e \te
 
 Toda a fundamentação teórica se baseia em conteúdo oferecido em vídeo-aulas e \textit{slides} pelo Professor João Batista Florindo em ocasião de oferecimento da disciplina MS960 no segundo semestre de 2020 pelo Instituto de Matemática, Estatística e Computação Científica (IMECC) da Universidade Estadual de Campinas (UNICAMP).
 
-
-\section{Documentação} \label{doc}
-*** COMPLETAR ***
-
-
-
 \section{Máquinas de Vetores de Suporte --- Parte I} \label{parte1}
 
-Os conceitos, métodos e ferramentas descritos nessa seção tem por objetivo a identificação de padrões e classificação de exemplos de treinamento ou teste em classes distintas. Para isso se procurou encontrar a melhor fronteira de decisão que separasse, de forma otimizada, as classes de objetos em estudo. Todas as considerações dessa seção estão descritas no arquivo \textit{ SVM\_Projeto\_3\_Parte\_1.ipynb}.
+Os conceitos, métodos e ferramentas descritos nessa seção têm por objetivo a identificação de padrões e classificação de exemplos de treinamento ou teste em classes distintas. Para isso se procurou encontrar a melhor fronteira de decisão que separasse, de forma otimizada, as classes de objetos em estudo. Todas as considerações dessa seção estão descritas no arquivo \textit{ SVM\_Projeto\_3\_Parte\_1.ipynb}.
 
 \subsection{Máquinas de Vetores de Suporte – Linear}
 
@@ -195,7 +189,7 @@ Uma forma de medir a perda de informação gerada pelo PCA é avaliar a fração
 
 A Figura \ref{variancia} apresenta um gráfico da evolução da fração da variância original mantida em função do número de componentes principais. Conforme esperado, quanto maior o número de componentes principais, maior essa fração e, portanto, menor a perda de informação. É interessante observar, contudo, como um número relativamente baixo de componentes principais já garante um valor grande dessa fração e consequente pequena perda de informação. Para k=100, por exemplo, como utilizado na Seção \ref{proj}, há cerca de 94\% da manutenção da variância original. Com 150 componentes principais, o que corresponde a pouco mais do que 10\% da dimensão original dos dados, mais de 96\% da variância original é mantida e, a partir de 350 \textit{eigenfaces}, que representa cerca de um terço do número original de atributos, já há manutenção de mais do que 99\% da variância original.
 
-\begin{figure} [htp]
+\begin{figure} [thbp]
 \begin{center}
 \includegraphics[scale=0.8]{variancia.jpg}
 \caption{Evolução da fração da variância original mantida em relação ao número de componentes principais.} \label{variancia}

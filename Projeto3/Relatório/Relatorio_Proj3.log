@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.6.9)  30 NOV 2020 12:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7380 64-bit) (preloaded format=pdflatex 2020.6.9)  14 DEC 2020 09:27
 entering extended mode
 **./Relatorio_Proj3.tex
 (Relatorio_Proj3.tex
@@ -1098,70 +1098,97 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 45.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 45.
- [1
+
+Overfull \hbox (9.967pt too wide) in paragraph at lines 46--47
+\T1/ptm/m/n/12 e oti-mi-zar hi-per-pa-râ-me-tros. A im-ple-men-ta-ção foi feita
+ no ar-quivo  \T1/ptm/m/it/12 SVM_Projeto_3_Parte_1.ipynb
+ []
+
+[1
 
 {C:/Users/ferna/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+<svm_linear.png, id=56, 386.94562pt x 292.84406pt>
+File: svm_linear.png Graphic file (type png)
+<use svm_linear.png>
+Package pdftex.def Info: svm_linear.png  used on input line 67.
+(pdftex.def)             Requested size: 309.55692pt x 234.27556pt.
+<svm_gaussiano.png, id=57, 387.69844pt x 294.34969pt>
+File: svm_gaussiano.png Graphic file (type png)
+<use svm_gaussiano.png>
+Package pdftex.def Info: svm_gaussiano.png  used on input line 80.
+(pdftex.def)             Requested size: 310.15916pt x 235.48006pt.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 71.
-<faces_original.jpg, id=48, 447.6725pt x 441.65pt>
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 85.
+<svm_gaussiano2.png, id=58, 388.45125pt x 292.84406pt>
+File: svm_gaussiano2.png Graphic file (type png)
+<use svm_gaussiano2.png>
+Package pdftex.def Info: svm_gaussiano2.png  used on input line 89.
+(pdftex.def)             Requested size: 310.76141pt x 234.27556pt.
+ [2 <./svm_linear.png>] [3 <./svm_gaussiano.png>]
+<svm_gaussiano3.png, id=70, 387.69844pt x 291.33844pt>
+File: svm_gaussiano3.png Graphic file (type png)
+<use svm_gaussiano3.png>
+Package pdftex.def Info: svm_gaussiano3.png  used on input line 110.
+(pdftex.def)             Requested size: 310.15916pt x 233.07106pt.
+ [4 <./svm_gaussiano2.png>]
+<faces_original.jpg, id=77, 447.6725pt x 441.65pt>
 File: faces_original.jpg Graphic file (type jpg)
 <use faces_original.jpg>
-Package pdftex.def Info: faces_original.jpg  used on input line 77.
+Package pdftex.def Info: faces_original.jpg  used on input line 131.
 (pdftex.def)             Requested size: 358.13847pt x 353.32047pt.
- [2 <./faces_original.jpg>]
-<eigenfaces.jpg, id=57, 446.66875pt x 436.63126pt>
+ [5 <./svm_gaussiano3.png>] [6 <./faces_original.jpg>]
+<eigenfaces.jpg, id=94, 446.66875pt x 436.63126pt>
 File: eigenfaces.jpg Graphic file (type jpg)
 <use eigenfaces.jpg>
-Package pdftex.def Info: eigenfaces.jpg  used on input line 95.
+Package pdftex.def Info: eigenfaces.jpg  used on input line 149.
 (pdftex.def)             Requested size: 357.33548pt x 349.30548pt.
-
-[3 <./eigenfaces.jpg>]
-<projFaces1.jpg, id=69, 450.68375pt x 444.66125pt>
+ [7 <./eigenfaces.jpg>]
+<projFaces1.jpg, id=104, 450.68375pt x 444.66125pt>
 File: projFaces1.jpg Graphic file (type jpg)
 <use projFaces1.jpg>
-Package pdftex.def Info: projFaces1.jpg  used on input line 111.
+Package pdftex.def Info: projFaces1.jpg  used on input line 165.
 (pdftex.def)             Requested size: 360.54747pt x 355.72948pt.
-<projFaces2.jpg, id=70, 453.695pt x 447.6725pt>
+<projFaces2.jpg, id=105, 453.695pt x 447.6725pt>
 File: projFaces2.jpg Graphic file (type jpg)
 <use projFaces2.jpg>
-Package pdftex.def Info: projFaces2.jpg  used on input line 118.
+Package pdftex.def Info: projFaces2.jpg  used on input line 172.
 (pdftex.def)             Requested size: 362.9565pt x 358.13847pt.
- [4] [5 <./projFaces1.jpg>] [6 <./projFaces2.jpg>]
-<variancia.jpg, id=90, 433.62pt x 289.08pt>
+ [8 <./projFaces1.jpg>] [9 <./projFaces2.jpg>]
+<variancia.jpg, id=120, 433.62pt x 289.08pt>
 File: variancia.jpg Graphic file (type jpg)
 <use variancia.jpg>
-Package pdftex.def Info: variancia.jpg  used on input line 140.
+Package pdftex.def Info: variancia.jpg  used on input line 194.
 (pdftex.def)             Requested size: 346.89647pt x 231.2643pt.
-
-
+ 
 AED: lastpage setting LastPage
-[7 <./variancia.jpg>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 150.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 150.
+[10] [11 <./variancia.jpg>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 204.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 204.
  (Relatorio_Proj3.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 150.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 150.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 204.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 204.
 Package rerunfilecheck Info: File `Relatorio_Proj3.out' has not changed.
-(rerunfilecheck)             Checksum: E0AB1FF8F0D846F6106E62AB96D6BF87;630.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 150.
+(rerunfilecheck)             Checksum: 0F75CA837FFC526D01D4A1A17EBA65CA;864.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 204.
  ) 
 Here is how much of TeX's memory you used:
- 21786 strings out of 480896
- 392214 string characters out of 2908246
- 669496 words of memory out of 3000000
- 37171 multiletter control sequences out of 15000+200000
- 579796 words of font info for 91 fonts, out of 3000000 for 9000
+ 21828 strings out of 480896
+ 392923 string characters out of 2908246
+ 668721 words of memory out of 3000000
+ 37196 multiletter control sequences out of 15000+200000
+ 580524 words of font info for 93 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,7n,60p,963b,485s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/t
-imes/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files
-/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Relatorio_Proj3.pdf (7 pages, 553143 bytes).
+/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/s
+ymbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C
+:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/
+MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/
+type1/urw/times/utmri8a.pfb>
+Output written on Relatorio_Proj3.pdf (11 pages, 637206 bytes).
 PDF statistics:
- 125 PDF objects out of 1000 (max. 8388607)
- 23 named destinations out of 1000 (max. 500000)
- 102 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 164 PDF objects out of 1000 (max. 8388607)
+ 33 named destinations out of 1000 (max. 500000)
+ 138 words of extra memory for PDF output out of 10000 (max. 10000000)
 

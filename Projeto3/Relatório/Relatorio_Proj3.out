@@ -1,8 +1,10 @@
-\BOOKMARK [1][-]{section.1}{Documenta\347\343o}{}% 1
-\BOOKMARK [1][-]{section.2}{*** \204 Parte I}{}% 2
-\BOOKMARK [1][-]{section.3}{An\341lise de Componentes Principais \(PCA\) \204 Parte II}{}% 3
-\BOOKMARK [2][-]{subsection.3.1}{Importa\347\343o e Visualiza\347\343o dos Exemplos de Treinamento}{section.3}% 4
-\BOOKMARK [2][-]{subsection.3.2}{Determina\347\343o e Visualiza\347\343o das eigenfaces}{section.3}% 5
-\BOOKMARK [2][-]{subsection.3.3}{Proje\347\343o das Faces}{section.3}% 6
-\BOOKMARK [2][-]{subsection.3.4}{Fra\347\343o da Vari\342ncia Original Mantida}{section.3}% 7
-\BOOKMARK [1][-]{section.4}{Refer\352ncias}{}% 8
+\BOOKMARK [1][-]{section.1}{M\341quinas de Vetores de Suporte \204 Parte I}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{M\341quinas de Vetores de Suporte \205 Linear}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{M\341quinas de Vetores de Suporte \205 Gaussiano}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{C e gamma ideais}{section.1}% 4
+\BOOKMARK [1][-]{section.2}{An\341lise de Componentes Principais \(PCA\) \204 Parte II}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Importa\347\343o e Visualiza\347\343o dos Exemplos de Treinamento}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Determina\347\343o e Visualiza\347\343o das eigenfaces}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{Proje\347\343o das Faces}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.4}{Fra\347\343o da Vari\342ncia Original Mantida}{section.2}% 9
+\BOOKMARK [1][-]{section.3}{Refer\352ncias}{}% 10
