@@ -52,7 +52,85 @@ Toda a fundamentação teórica se baseia em conteúdo oferecido em vídeo-aulas
 
 
 
-\section{Parte I} \label{parte1}
+\section{Detecção de Anomalias ---Parte I} \label{parte1}
+
+Essa seção explica a implementação de modelos de detecção de anomalias em servidores computacionais usando o modelo Gaussiano multivariado.
+
+Para isso foi utilizado os dados presentes nos arquivos dados1.mat e que contém um conjunto de exemplos de servidores (matriz X), cada um com sua respectiva latência (tempo que um pacote específico leva para chegar ao destino) na $1^{a}$ coluna e taxa de transferência (quantidade de dados transferidos de um lugar para outro) na $2^{a}$ coluna. Estes arquivos também possuem uma matriz Xval com um conjunto de dados de validação e um vetor yval com seus respectivos rótulos.
+
+O arquivo dados2.mat armazena matrizes com 11 parâmetros relacionados ao funcionamento dos servidores e possuem uma quantidade maior de exemplos de treinamento. Ele será utilizado em testes complementares com o sistema desenvolvido.
+
+A implementação descrita na presente Seção foi feita em linguagem python em arquivo do tipo notebook e pode ser encontrada no arquivo Anomaly\_Proj4\_Par1.ipynb. Inicialmente, importam-se as bibliotecas numpy e matplotlib, loadmat da biblioteca scipy.io e o módulo seaborn do python. Os detalhes da implementação estão descritos nas próximas seções.
+
+\subsection{Ajuste da Gaussiana multivariada aos dados} \label{gau_mult}
+Para realizar a detecção de anomalias foi desenvolvido um modelo de distribuição dos dados. O conjunto de treinamento $x^{(1)},…, x^{(m)}$, com $x^{(i)} \in R ^ n$, foi utilizado para gerar uma estimativa da distribuição gaussiana para cada um dos exemplos de treinamento. Para cada um deles (i = 1 ... n), foi encontrada  a média $\mu$ e a variância $\sigma^{2}$. As funções que calculam a média e a variância estão abaixo. No código foram implementadas na função estimateGaussian( ) que recebe uma matriz X com os exemplos de treinamento e retorna a média $\mu$ e a variância $\sigma^{2}$.
+
+\begin{equation} \label{eq_mu}
+\mu_{j} = \frac{1}{m}\sum^{m}_{i=1}x^{(i)}_{j} 
+\end{equation}
+
+\begin{equation} \label{eq_sig}
+\sigma^{2}_{j} = \frac{1}{m}\sum^{m}_{i=1}(x^{(i)}_{j} - \mu_{j})^{2} 
+\end{equation}
+
+Ao calcular a média para cada exemplo, calculamos a variância dos exemplos correspondentes. 
+
+Uma vez que encontradas a média e a variância precisamos calcular a probabilidade dos exemplos de treinamento para decidir quais exemplos são anômalos. 
+A distribuição gaussiana multivariada foi usada para encontrar a probabilidade de cada exemplo de treinamento e com base em algum valor limite - valor de $\epsilon$ - sinaliza se é uma anomalia ou não. A expressão para calcular as probabilidades com modelo de distribuição Gaussiana multivariada é:
+
+\begin{equation} \label{eq_p}
+p(x) = (x;\mu;\Sigma) = \frac{1}{(2\pi)^{n/2}|\Sigma|^{1/2}}exp(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x - \mu)) 
+\end{equation}
+
+Em que $\Sigma$ é a matriz de covariância e $|\Sigma|$ o determinante de $\Sigma$. No código está função foi implementada em multivariateGaussian( ) e recebe como valore de entrada uma matriz X com os exemplos de treinamento e os valores de $\mu$ e $\sigma^2$, retornando o vetor p com os valores das probabilidades calculadas para cada exemplo de treinamento.
+
+Temos uma anomalia se p(x) < $\epsilon$.
+
+
+\subsection{Curvas de contorno da Gaussiana} \label{cur_gau}
+No ajuste das curvas de contorno da gaussiana foi utilizada a função kdeplot do módulo python seaborn. O kdeplot cria gráficos de estimativa de distribuição de kernel que representa a função de densidade de probabilidade das variáveis de dados contínuas ou não paramétricas, ou seja, pode-se representar graficamente as variáveis univariadas ou múltiplas ao mesmo tempo. O kdeplot utiliza um algoritmo de kernel gaussiano para gerar as curvas de probabilidades.
+
+A função kdeplot recebe a matriz de dados e um parâmetro de suavização das curvas bw. Após o ajuste manual do parâmetro bw foi obtido o seguinte gráfico.
+
+\begin{figure} [htp]
+\begin{center}
+\includegraphics[scale=0.8]{curvas.png}
+\caption{Curvas de contorno da
+Gaussiana obtida} \label{curvas}
+\end{center}
+\end{figure}
+
+Com essas curvas de contorno da gaussiana podemos identificar facilmente os pontos que fogem do padrão esperado.
+
+\subsection{Valor ideal de $\epsilon$ e $F_{1}-score$} \label{}
+
+Encontradas as probabilidades para os dados (no código estas probabilidades foram armazenadas na variável pval), em seguida é necessário determinar os valores ótimos do threshold $\epsilon$ e do $F_{1}-score$ utilizando dados rotulados. Esses parâmetros são calculados na função selectThreshold( ) que recebe os vetores pval com as probabilidades de cada exemplo de treinamento e o vetor yval com os rótulos de cada exemplo de treinamento. 
+
+Antes de se calcular esses parâmetros o pval foi dividido em subintervalos entre o máximo e o mínimo possível de threshold. Permitindo, assim, a verificação de um determinado número de $\epsilon$ entre o maior e o menor $\epsilon$ presente em pval. No projeto foram utilizados 1000 intervalos. Para cada valor de $\epsilon$ no vetor epi\_range se calcula a predição. Ou seja, se os valores presentes no vetor pval forem menores que o $\epsilon$ da interação, a predição retornará 1 (positivo para anomalia), caso contrário receberão 0 (negativo para anomalia). Na função selectThreshold( ) isso é feito criando-se o vetor predictions que conterá a comparação entre o vetor pval e o $\epsilon$ da interação. Em seguida, se calcula o número de verdadeiro-positivos, falso-positivos e falso-negativos comparando-se os vetores predictions e yval. 
+
+O precision e o recall são calculados respectivamente pelas fórmulas tp/(tp+fp) e tp/(tp+fn). Por fim, a cada interação, o $F_{1}-score$ é calculado pela fórmula (2*prec*rec)/(prec+rec) e comparado com o $F_{1}-score$ da interação anterior. Se o $F_{1}-score$ for maior que o da interação anterior, o $\epsilon$ e $F_{1}-score$ são atualizados pelos valores recém calculados. No fim do processo os valores de $\epsilon$ e $F_{1}-score$ são retornados pela função.
+
+\subsection{Localizando e circulando as Anomalias} \label{lc_ano}
+
+Em posse do melhor valor para $\epsilon$ podemos encontrar as anomalias/ outliers por meio da probabilidade dos exemplos de treinamento. Os outliers serão aqueles que possuem probabilidades menores que o $\epsilon$ ótimo. 
+outliers = p < $\epsilon$
+
+Através da comparação do vetor pval com o valor do $\epsilon$ ótimos os índices dos outliers são armazenados no vetor outliers permitindo sua posterior identificação no gráfico. A imagem a seguir mostra o gráfico com as anomalias circuladas em vermelho.
+
+\begin{figure} [htp]
+\begin{center}
+\includegraphics[scale=0.8]{anomalias.png}
+\caption{Anomalias circuladas em vermelho} \label{anomalias}
+\end{center}
+\end{figure}
+
+Como pode ser visto no gráfico, 7 anomalias  foram detectadas pelo modelo (os pontos 8.73/16.79 e 8.77/16.68 ficaram sobrepostos). Nesse modelo de detecção de anomalias os valores de $\epsilon$ e $F_{1}-score$ foram 8.990852779269495e-05 e 0.8750000000000001 respectivamente. E pela análise visual desses pontos se verifica que eles são exatamente os pontos que fogem do padrão esperado. 
+
+\subsection{Outro exemplo de detecção de Anomalias} \label{}
+
+Ao executar o sistema desenvolvido com os dados do arquivo dados2.mat obteve-se valores para $\epsilon$ e $F_{1}-score$ iguais a 1.3772288907613575e-18 e 0.6153846153846154 respectivamente. Como os exemplos de treinamento possuem muitos parâmetros não é possível uma inspeção visual das anomalias encontradas. 
+
+Dezesseis anomalias foram encontradas e seus respectivos índices são: [0, 3, 6, 11, 19, 27, 34, 43, 50, 59, 60, 69, 71, 86, 88, 92].
 
 
 \section{Sistema de Recomendação --- Parte II} \label{parte2}
