@@ -56,11 +56,12 @@ Toda a fundamentação teórica se baseia em conteúdo oferecido em vídeo-aulas
 
 Essa seção explica a implementação de modelos de detecção de anomalias em servidores computacionais usando o modelo Gaussiano multivariado.
 
-Para isso foi utilizado os dados presentes nos arquivos dados1.mat e que contém um conjunto de exemplos de servidores (matriz X), cada um com sua respectiva latência (tempo que um pacote específico leva para chegar ao destino) na $1^{a}$ coluna e taxa de transferência (quantidade de dados transferidos de um lugar para outro) na $2^{a}$ coluna. Estes arquivos também possuem uma matriz Xval com um conjunto de dados de validação e um vetor yval com seus respectivos rótulos.
+No desenvolvimento do projeto foram utilizados os dados presentes nos arquivos dados1.mat e dados2.mat que possuem vetores e matrizes com exemplos de treinamento e validação. O arquivo dados1.mat possui um conjunto de exemplos de servidores (matriz X ) com dois parâmetros: latência (tempo que um pacote específico leva para chegar ao destino) na $1^{a}$ coluna e taxa de transferência (quantidade de dados transferidos de um lugar para outro) na $2^{a}$ coluna. 
 
-O arquivo dados2.mat armazena matrizes com 11 parâmetros relacionados ao funcionamento dos servidores e possuem uma quantidade maior de exemplos de treinamento. Ele será utilizado em testes complementares com o sistema desenvolvido.
+O arquivo dados2.mat armazena matrizes com 11 parâmetros relacionados ao funcionamento dos servidores e possuem uma quantidade maior de exemplos de treinamento. Ele será utilizado em testes complementares com o sistema desenvolvido. Estes arquivos também possuem uma matriz Xval com um conjunto de dados de validação e um vetor yval com seus respectivos rótulos.
 
-A implementação descrita na presente Seção foi feita em linguagem python em arquivo do tipo notebook e pode ser encontrada no arquivo Anomaly\_Proj4\_Par1.ipynb. Inicialmente, importam-se as bibliotecas numpy e matplotlib, loadmat da biblioteca scipy.io e o módulo seaborn do python. Os detalhes da implementação estão descritos nas próximas seções.
+A implementação descrita na presente seção foi feita em linguagem python em arquivo do tipo notebook e pode ser encontrada no arquivo Anomaly\_Proj4\_Par1.ipynb. Inicialmente, importou-se as bibliotecas numpy, matplotlib, loadmat/scipy.io e o módulo seaborn do python. Os detalhes da implementação estão descritos nas próximas seções.
+
 
 \subsection{Ajuste da Gaussiana multivariada aos dados} \label{gau_mult}
 Para realizar a detecção de anomalias foi desenvolvido um modelo de distribuição dos dados. O conjunto de treinamento $x^{(1)},…, x^{(m)}$, com $x^{(i)} \in R ^ n$, foi utilizado para gerar uma estimativa da distribuição gaussiana para cada um dos exemplos de treinamento. Para cada um deles (i = 1 ... n), foi encontrada  a média $\mu$ e a variância $\sigma^{2}$. As funções que calculam a média e a variância estão abaixo. No código foram implementadas na função estimateGaussian( ) que recebe uma matriz X com os exemplos de treinamento e retorna a média $\mu$ e a variância $\sigma^{2}$.
@@ -132,6 +133,7 @@ Ao executar o sistema desenvolvido com os dados do arquivo dados2.mat obteve-se 
 
 Dezesseis anomalias foram encontradas e seus respectivos índices são: [0, 3, 6, 11, 19, 27, 34, 43, 50, 59, 60, 69, 71, 86, 88, 92].
 
+O $F_1-score$ combina o precision e o recall de modo a trazer um número único que indique a qualidade geral do modelo. Quanto mais próximo de 1 estiver o $F_1-score$ mais bem equilibrado o modelo estará e tanto o precision quanto o recall possuíram valores adequados.  Logo podemos verificar que o modelo com apenas 2 parâmetros ( $F_1-score$ = 0.875) foi mais eficiente do que o modelo com 11 parâmetros ( $F_1-score$ = 0.615).
 
 \section{Sistema de Recomendação --- Parte II} \label{parte2}
 
